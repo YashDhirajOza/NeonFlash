@@ -47,3 +47,19 @@ go build -o redis-server main.go resp.go
 
 # Or run directly with go run
 go run main.go resp.go
+------------------------------------------------------------
+ 💬 Usage
+Open a new terminal and connect with redis-cli:
+
+
+$ redis-cli
+127.0.0.1:6379> PING
+PONG
+127.0.0.1:6379> SET foo bar
+OK
+127.0.0.1:6379> GET foo
+"bar"
+127.0.0.1:6379> GET missing
+(nil)
+127.0.0.1:6379> UNKNOWN
+(error) ERR unknown command 'UNKNOWN'
