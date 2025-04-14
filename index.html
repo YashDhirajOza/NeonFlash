@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NeonFlash - In‑Memory Data Store</title>
+  <style>
+    /* Base Styles & Background */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: radial-gradient(circle, #000000, #0d0d0d);
+      color: #e0e0e0;
+      line-height: 1.6;
+    }
+
+    a {
+      color: #00FFFF;
+      text-decoration: none;
+    }
+    
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* Neon Text Effect */
+    .neon {
+      font-size: 2.5rem;
+      text-align: center;
+      color: #00FFFF;
+      text-shadow:
+        0 0 5px #00FFFF,
+        0 0 10px #00FFFF,
+        0 0 20px #00FFFF,
+        0 0 40px #9B30FF,
+        0 0 80px #FF69B4,
+        0 0 90px #FF69B4;
+      margin: 1rem 0;
+      animation: neonGlow 1.5s ease-in-out infinite alternate;
+    }
+
+    @keyframes neonGlow {
+      from {
+        filter: brightness(1);
+      }
+      to {
+        filter: brightness(1.5);
+      }
+    }
+
+    /* Container */
+    .container {
+      max-width: 960px;
+      margin: auto;
+      padding: 2rem;
+    }
+
+    /* Section Headers */
+    h1, h2, h3 {
+      border-bottom: 2px solid #00FFFF;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    /* Code Blocks */
+    pre {
+      background: #1a1a1a;
+      padding: 1rem;
+      border-radius: 5px;
+      overflow-x: auto;
+      color: #00FFFF;
+    }
+    
+    code {
+      font-family: Consolas, Monaco, 'Courier New', monospace;
+      color: #FF69B4;
+    }
+
+    /* Navigation Menu */
+    nav {
+      background: rgba(0, 0, 0, 0.8);
+      padding: 1rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin: 0;
+      padding: 0;
+    }
+    
+    nav li {
+      display: inline;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      margin-top: 2rem;
+      padding: 1rem;
+      font-size: 0.85rem;
+      border-top: 1px solid #00FFFF;
+    }
+
+    /* Responsive Media */
+    @media (max-width: 600px) {
+      nav ul {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <ul>
+      <li><a href="#overview">Overview</a></li>
+      <li><a href="#features">Features</a></li>
+      <li><a href="#installation">Installation</a></li>
+      <li><a href="#usage">Usage</a></li>
+      <li><a href="#architecture">Architecture</a></li>
+      <li><a href="#contributing">Contributing</a></li>
+    </ul>
+  </nav>
+
+  <div class="container">
+    <header>
+      <h1 class="neon">NeonFlash</h1>
+      <p style="text-align: center;">A Redis‑inspired in‑memory data store with futuristic neon vibes.</p>
+    </header>
+
+    <section id="overview">
+      <h2>Overview</h2>
+      <p>
+        NeonFlash is a highly performant, minimalist, in‑memory key‑value store inspired by <a href="https://redis.io" target="_blank">Redis</a>.
+        Written in Go, it sets up a TCP server on port <strong>6379</strong> and uses the <a href="https://redis.io/topics/protocol" target="_blank">RESP</a> protocol for communication.
+        The design leverages goroutines and mutexes to handle concurrent client connections efficiently.
+      </p>
+    </section>
+
+    <section id="features">
+      <h2>Features</h2>
+      <ul>
+        <li><strong>Redis-like Commands:</strong> Supports <code>PING</code>, <code>SET</code>, and <code>GET</code>.</li>
+        <li><strong>RESP Protocol Handling:</strong> Custom parser and writer for arrays and bulk strings.</li>
+        <li><strong>Concurrent Client Handling:</strong> Uses goroutines to manage multiple connections.</li>
+        <li><strong>In‑memory Data Store:</strong> Global map protected by a read‑write mutex ensures safe data operations.</li>
+        <li><strong>Neon-Themed Logging:</strong> Logs activity with visually appealing neon color effects.</li>
+      </ul>
+    </section>
+
+    <section id="installation">
+      <h2>Installation &amp; Setup</h2>
+      <h3>Prerequisites</h3>
+      <p>You need Go (version 1.16 or later) installed.</p>
+      
+      <h3>Clone &amp; Build</h3>
+      <pre><code>git clone https://github.com/your-username/neonflash.git
+cd neonflash
+go build -o neonflash
+./neonflash</code></pre>
+
+      <p>Note: The server listens on TCP port <code>6379</code>. Ensure your firewall settings allow traffic on this port.</p>
+    </section>
+
+    <section id="usage">
+      <h2>Usage</h2>
+      <p>You can interact with NeonFlash using Redis clients like <code>redis-cli</code> or any TCP client:</p>
+      
+      <h3>Ping the server:</h3>
+      <pre><code>redis-cli -p 6379 ping</code></pre>
+      <p>Response: <code>PONG</code></p>
+      
+      <h3>Set a key-value pair:</h3>
+      <pre><code>redis-cli -p 6379 set mykey "Hello, Neon World!"</code></pre>
+      <p>Response: <code>OK</code></p>
+      
+      <h3>Get the value of a key:</h3>
+      <pre><code>redis-cli -p 6379 get mykey</code></pre>
+      <p>Response: <code>"Hello, Neon World!"</code></p>
+    </section>
+
+    <section id="architecture">
+      <h2>Code Architecture</h2>
+      <ul>
+        <li><strong>Server Initialization:</strong> The <code>main.go</code> file opens a TCP listener on port <code>6379</code>, accepts connections, and handles each client in a separate goroutine.</li>
+        <li><strong>Connection Handling:</strong> <code>handleConn</code> sets up a custom RESP parser and writer for each client request.</li>
+        <li><strong>In‑memory Data Store:</strong> A global map protected by a read‑write mutex is used for safe concurrent access.</li>
+        <li><strong>RESP Protocol:</strong> The <code>resp.go</code> file contains functions to parse arrays and bulk strings and marshal responses back to the client.</li>
+        <li><strong>Logging:</strong> Detailed neon-themed logging provides insights into server activity.</li>
+      </ul>
+    </section>
+
+    <section id="contributing">
+      <h2>Contributing</h2>
+      <p>If you'd like to contribute, please follow these steps:</p>
+      <ol>
+        <li>Fork the repository.</li>
+        <li>Create a new feature branch: <code>git checkout -b feature/your-feature</code></li>
+        <li>Commit your changes: <code>git commit -m "Describe your feature"</code></li>
+        <li>Push your branch: <code>git push origin feature/your-feature</code></li>
+        <li>Open a Pull Request with a detailed description of your changes.</li>
+      </ol>
+      <p>See the <a href="CONTRIBUTING.md" target="_blank">CONTRIBUTING guidelines</a> for more details.</p>
+    </section>
+
+    <footer>
+      <p>&copy; 2025 NeonFlash. Licensed under the <a href="LICENSE" target="_blank">MIT License</a>.</p>
+    </footer>
+  </div>
+</body>
+</html>
